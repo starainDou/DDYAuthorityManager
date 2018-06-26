@@ -19,6 +19,8 @@
 @import Speech;
 // FaceID权限使用
 @import LocalAuthentication;
+//
+@import HealthKit;
 
 /** 通讯录兼容(iOS 9- 和 iOS 9+)权限状态 */
 typedef NS_ENUM(NSInteger, DDYContactsAuthStatus) {
@@ -54,13 +56,13 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
 - (void)ddy_AudioAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, AVAuthorizationStatus authStatus))result;
 
 /**
- 摄像头(相机)权限 带主动请权
+ 摄像头(相机)权限 带主动请权 使用前最好先判断摄像头是否可用
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
 - (void)ddy_CameraAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, AVAuthorizationStatus authStatus))result;
 
-/** 判断设备摄像头是否可用1 */
+/** 判断设备摄像头是否可用 */
 - (BOOL)isCameraAvailable;
 
 /** 前面的摄像头是否可用 */
@@ -126,20 +128,27 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
 - (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized))result;
 
 /**
- 定位权限 不带主动请权
+ 定位权限 不带主动请权 使用前先判断服务是否开启 [CLLocationManager locationServicesEnabled]
  @param type 定位类型 声明:Always可时时定位(包括后台时)，若不需要不建议添加，可能影响上线审核，可做一些声明描述：GPS在后台持续运行，可能降低电池的寿命。
  @param show 无权限时默认提示
  @param result 鉴权结果 如果是kCLAuthorizationStatusNotDetermined未经弹框(或者弹框未任何操作，例如弹框时关机)，则需特殊处理
  */
-- (void)ddy_LocationAuthAlertShow:(BOOL)show authType:(DDYCLLocationType)type result:(void (^)(BOOL isAuthorized, CLAuthorizationStatus authStatus))result;
+- (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, CLAuthorizationStatus authStatus))result;
 
 /**
- 语音识别(转文字) 带主动请权
+ 语音识别(转文字)权限 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
 - (void)ddy_SpeechAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus))result API_AVAILABLE(ios(10.0));
 
+/**
+ 健康数据权限 不带主动请权 使用前先判断健康数据是否可用 [HKHealthStore isHealthDataAvailable]
+ @param type HKQuantityTypeIdentifier(NSString *) 要鉴权类型 HKQuantityTypeIdentifierStepCount
+ @param show 无权限时默认提示
+ @param result 鉴权结果
+ */
+- (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, HKAuthorizationStatus authStatus))result;
 
 @end
 /**

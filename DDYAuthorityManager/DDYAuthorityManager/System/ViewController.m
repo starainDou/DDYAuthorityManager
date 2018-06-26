@@ -29,15 +29,19 @@
     NSArray *authArray = @[@"麦克风", @"摄像头", @"相册", @"通讯录", @"日历", @"备忘录", @"联网权限", @"推送", @"定位", @"语音识别", @"特别声明"];
     for (NSInteger i = 0; i < authArray.count; i++) {
         @autoreleasepool {
-            [self.buttonArray addObject:[self generateButton:i title:authArray[i]]];
+            UIButton *button = [self generateButton:i title:authArray[i]];
+            [self.buttonArray addObject:button];
+            [self performSelectorOnMainThread:@selector(handleClick:) withObject:button waitUntilDone:YES];
         }
     }
     
     // 主动请求网络 先让系统弹出联网权限提示框
     [[DDYAuthorityManager sharedManager] ddy_GetNetAuthWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
     // 定位
+    if ([CLLocationManager locationServicesEnabled]) {
     _locationManager = [[CLLocationManager alloc] init];
     [_locationManager requestWhenInUseAuthorization];
+    }
 }
 
 - (UIButton *)generateButton:(NSInteger)tag title:(NSString *)title {
@@ -64,9 +68,14 @@
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 101) {
-        [manager ddy_CameraAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        if ([manager isCameraAvailable]) {
+            [manager ddy_CameraAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
+                sender.selected = isAuthorized;
+            }];
+        } else {
+            sender.selected = NO;
+            NSLog(@"摄像头不可用");
+        }
     } else if (sender.tag == 102) {
         [manager ddy_AlbumAuthAlertShow:YES result:^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
             sender.selected = isAuthorized;
@@ -96,9 +105,15 @@
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 108) {
-        [manager ddy_LocationAuthAlertShow:YES authType:DDYCLLocationTypeInUse result:^(BOOL isAuthorized, CLAuthorizationStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        if ([CLLocationManager locationServicesEnabled]) {
+            [manager ddy_LocationAuthType:DDYCLLocationTypeInUse alertShow:YES result:^(BOOL isAuthorized, CLAuthorizationStatus authStatus) {
+                sender.selected = isAuthorized;
+            }];
+        } else {
+            sender.selected = NO;
+            NSLog(@"定位服务未开启");
+        }
+        
     } else if (sender.tag == 109) {
         if (@available(iOS 10.0, *)) {
             [manager ddy_SpeechAuthAlertShow:YES result:^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {

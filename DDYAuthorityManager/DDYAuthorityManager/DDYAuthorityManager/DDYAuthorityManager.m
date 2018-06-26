@@ -324,7 +324,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 定位权限
-- (void)ddy_LocationAuthAlertShow:(BOOL)show authType:(DDYCLLocationType)type result:(void (^)(BOOL, CLAuthorizationStatus))result {
+- (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL, CLAuthorizationStatus))result {
     // 如果定位服务都未开启，则显示永不(无权限)
     if ([CLLocationManager locationServicesEnabled]) {
         CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
@@ -346,7 +346,7 @@ static DDYAuthorityManager *_instance;
             if (show) [self showAlertWithAuthName:@"定位"];
         }
     } else {
-        
+        NSLog(@"Location Services 未开启");
     }
 }
 
@@ -367,6 +367,25 @@ static DDYAuthorityManager *_instance;
         handleResult(authStatus == SFSpeechRecognizerAuthorizationStatusAuthorized, authStatus);
     }
 }
+
+#pragma mark 健康数据权限
+- (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL, HKAuthorizationStatus))result {
+    if ([HKHealthStore isHealthDataAvailable]) {
+        HKHealthStore *healthStore = [[HKHealthStore alloc] init];
+        HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:type];
+        if (quantityType) {
+            HKAuthorizationStatus authStatus = [healthStore authorizationStatusForType:quantityType];
+            result(authStatus == HKAuthorizationStatusSharingAuthorized, authStatus);
+        } else {
+            NSLog(@"type error");
+        }
+    } else {
+        NSLog(@"健康数据不可用");
+    }
+}
+
+
+
 
 #pragma mark - 私有方法
 #pragma mark 默认无权限提示
