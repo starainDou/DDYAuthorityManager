@@ -31,7 +31,9 @@
         @autoreleasepool {
             UIButton *button = [self generateButton:i title:authArray[i]];
             [self.buttonArray addObject:button];
-            [self performSelectorOnMainThread:@selector(handleClick:) withObject:button waitUntilDone:YES];
+            if ([[NSUserDefaults standardUserDefaults] valueForKey:[NSString stringWithFormat:@"%ld_auth", button.tag]]) {
+                [self performSelectorOnMainThread:@selector(handleClick:) withObject:button waitUntilDone:YES];
+            }
         }
     }
     
@@ -62,6 +64,7 @@
 }
 
 - (void)handleClick:(UIButton *)sender {
+    [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:[NSString stringWithFormat:@"%ld_auth", sender.tag]];
     DDYAuthorityManager *manager = [DDYAuthorityManager sharedManager];
     if (sender.tag == 100) {
         [manager ddy_AudioAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
