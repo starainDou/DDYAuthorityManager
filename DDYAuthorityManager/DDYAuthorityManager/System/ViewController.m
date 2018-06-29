@@ -26,6 +26,10 @@
     [super viewDidLoad];
     _imgNormal = [self circleBorderWithColor:[UIColor grayColor] radius:8];
     _imgSelect = [self circleImageWithColor:[UIColor greenColor] radius:8];
+    
+    [self requestWhenInUseLocationAuthorization];
+    [self registerRemoteNotification];
+    
     NSArray *authArray = @[@"麦克风", @"摄像头", @"相册", @"通讯录", @"日历", @"备忘录", @"联网权限", @"推送", @"定位", @"语音识别", @"特别声明"];
     for (NSInteger i = 0; i < authArray.count; i++) {
         @autoreleasepool {
@@ -36,13 +40,35 @@
             }
         }
     }
-    
-    // 主动请求网络 先让系统弹出联网权限提示框
-    [[DDYAuthorityManager sharedManager] ddy_GetNetAuthWithURL:[NSURL URLWithString:@"https://www.baidu.com"]];
-    // 定位
+}
+
+#pragma mark 定位申请
+- (void)requestWhenInUseLocationAuthorization {
     if ([CLLocationManager locationServicesEnabled]) {
-    _locationManager = [[CLLocationManager alloc] init];
-    [_locationManager requestWhenInUseAuthorization];
+        _locationManager = [[CLLocationManager alloc] init];
+        [_locationManager requestWhenInUseAuthorization];
+    }
+}
+
+#pragma mark 远程推送通知 实际要在Appdelegate（可使用分类）
+- (void)registerRemoteNotification {
+    if (@available(iOS 10.0, *)) {
+        UNUserNotificationCenter *currentNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+        UNAuthorizationOptions options = UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
+        [currentNotificationCenter requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (!error) [[UIApplication sharedApplication] registerForRemoteNotifications]; // 注册获得device Token
+        }];
+    } else if (@available(iOS 8.0, *)) {
+        UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications]; // 注册获得device Token
+    } else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        UIRemoteNotificationType types = UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+#pragma clang diagnostic pop
     }
 }
 
@@ -124,10 +150,18 @@
             }];
         } else {
             sender.selected = NO;
+            [self showAlertWithMessage:@"iOS10+才有"];
         }
     } else {
         NSLog(@"Demo仅供参考");
     }
+}
+
+- (void)showAlertWithMessage:(NSString *)message
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark 绘制圆形图片
