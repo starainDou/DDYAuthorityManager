@@ -121,7 +121,7 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
 - (void)ddy_NetAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, CTCellularDataRestrictedState authStatus))result API_AVAILABLE(ios(10.0));
 
 /**
- 推送通知权限 需要在打开 target -> Capabilitie —> Push Notifications iOS10+带主动请权，iOS9-不带主动请权
+ 推送通知权限 需要在打开 target -> Capabilities —> Push Notifications iOS10+带主动请权，iOS9-不带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果 只返回是否有权限推送，不返回具体权限(badge,alert,sound)
  */

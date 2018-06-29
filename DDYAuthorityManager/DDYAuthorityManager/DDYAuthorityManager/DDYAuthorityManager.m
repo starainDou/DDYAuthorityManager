@@ -287,7 +287,7 @@ static DDYAuthorityManager *_instance;
     }
 }
 
-#pragma mark 推送通知权限 需要在打开 target -> Capabilitie —> Push Notifications
+#pragma mark 推送通知权限 需要在打开 target -> Capabilities —> Push Notifications
 - (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL))result {
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *notiCenter = [UNUserNotificationCenter currentNotificationCenter];
