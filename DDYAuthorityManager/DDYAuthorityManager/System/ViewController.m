@@ -56,7 +56,9 @@
         UNUserNotificationCenter *currentNotificationCenter = [UNUserNotificationCenter currentNotificationCenter];
         UNAuthorizationOptions options = UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
         [currentNotificationCenter requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if (!error) [[UIApplication sharedApplication] registerForRemoteNotifications]; // 注册获得device Token
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!error) [[UIApplication sharedApplication] registerForRemoteNotifications]; // 注册获得device Token
+            });
         }];
     } else if (@available(iOS 8.0, *)) {
         UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
