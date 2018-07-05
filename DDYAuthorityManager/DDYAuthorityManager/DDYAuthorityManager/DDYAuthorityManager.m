@@ -1,65 +1,30 @@
 #import "DDYAuthorityManager.h"
 // 弹窗使用
 #import "AppDelegate.h"
-// iOS 6-9 相册权限使用
-#import "NSTimer+DDYExtension.h"
-
-// 钥匙串使用
-@import Security;
-
-/** 创建单例使用 */
-static DDYAuthorityManager *_instance;
-
-@interface DDYAuthorityManager ()
-/** iOS 6-9 相册权限使用 轮询得到授权弹出框点击结果 */
-@property (nonatomic, strong) NSTimer *albumTimer;
-
-@end
 
 @implementation DDYAuthorityManager
 
-#pragma mark - 单例对象
-+ (instancetype)sharedManager {
-    return [[self alloc] init];
-}
-
-+ (instancetype)allocWithZone:(struct _NSZone *)zone {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [super allocWithZone:zone];
-    });
-    return _instance;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return _instance;
-}
-
-- (id)mutableCopyWithZone:(NSZone *)zone {
-    return _instance;
-}
-
 #pragma mark 麦克风权限
-- (void)ddy_AudioAuthAlertShow:(BOOL)show result:(void (^)(BOOL, AVAuthorizationStatus))result {
++ (void)ddy_AudioAuthAlertShow:(BOOL)show result:(void (^)(BOOL, AVAuthorizationStatus))result {
     void (^handleResult)(BOOL, AVAuthorizationStatus) = ^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"麦克风"];
     };
     
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-    if (authStatus == AVAuthorizationStatusNotDetermined) { 
+    if (authStatus == AVAuthorizationStatusNotDetermined) {
         [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 handleResult(granted, granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
             });
         }];
     } else  {
-       handleResult(authStatus == AVAuthorizationStatusAuthorized, authStatus);
+        handleResult(authStatus == AVAuthorizationStatusAuthorized, authStatus);
     }
 }
 
 #pragma mark 摄像头(相机)权限
-- (void)ddy_CameraAuthAlertShow:(BOOL)show result:(void (^)(BOOL, AVAuthorizationStatus))result {
++ (void)ddy_CameraAuthAlertShow:(BOOL)show result:(void (^)(BOOL, AVAuthorizationStatus))result {
     void (^handleResult)(BOOL, AVAuthorizationStatus) = ^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"摄像头"];
@@ -78,22 +43,22 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 判断设备摄像头是否可用
-- (BOOL)isCameraAvailable {
++ (BOOL)isCameraAvailable {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
 }
 
 #pragma mark 前面的摄像头是否可用
-- (BOOL)isFrontCameraAvailable {
++ (BOOL)isFrontCameraAvailable {
     return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront];
 }
 
 #pragma mark 后面的摄像头是否可用
-- (BOOL)isRearCameraAvailable {
++ (BOOL)isRearCameraAvailable {
     return [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
 }
 
 #pragma mark 相册使用权限(iOS 8+)
-- (void)ddy_AlbumAuthAlertShow:(BOOL)show result:(void (^)(BOOL, PHAuthorizationStatus))result {
++ (void)ddy_AlbumAuthAlertShow:(BOOL)show result:(void (^)(BOOL, PHAuthorizationStatus))result {
     void (^handleResult)(BOOL, PHAuthorizationStatus) = ^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"相册"];
@@ -111,45 +76,8 @@ static DDYAuthorityManager *_instance;
     }
 }
 
-#pragma mark 相册使用权限(iOS 6-9)
-- (void)ddy_AlbumOldAuthAlertShow:(BOOL)show outTime:(NSUInteger)outTime result:(void (^)(BOOL, ALAuthorizationStatus))result {
-    NSTimeInterval timerTimeInterval = 0.5;
-    __block NSInteger index = 0;
-    __weak __typeof__ (self)weakSelf = self;
-    void (^getAuthStatus)(void) = ^() {
-        __strong __typeof__ (weakSelf)strongSelf = weakSelf;
-        ALAuthorizationStatus authStatus = [ALAssetsLibrary authorizationStatus];
-        if (authStatus == ALAuthorizationStatusNotDetermined) {
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
-                [assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupFaces usingBlock:nil failureBlock:nil];
-            });
-            
-            if (outTime != 0) {
-                index += timerTimeInterval;
-                if (index >= outTime) {
-                    [strongSelf.albumTimer invalidate];
-                    strongSelf.albumTimer = nil;
-                    if (result) result(NO, authStatus);
-                }
-            }
-        } else {
-            if (result) result(authStatus == ALAuthorizationStatusAuthorized, authStatus);
-            if (authStatus != ALAuthorizationStatusAuthorized  && show) [strongSelf showAlertWithAuthName:@"相册"];
-            [strongSelf.albumTimer invalidate];
-            strongSelf.albumTimer = nil;
-        }
-    };
-    
-    [_albumTimer invalidate];
-    _albumTimer = nil;
-    // 系统不提供用户授权框点击回调，这里就采用轮询方式(可能出现不可预测问题)
-    _albumTimer = [NSTimer ddy_scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer *timer) { getAuthStatus(); }];
-}
-
 #pragma mark 通讯录权限
-- (void)ddy_ContactsAuthAlertShow:(BOOL)show result:(void (^)(BOOL, DDYContactsAuthStatus))result {
++ (void)ddy_ContactsAuthAlertShow:(BOOL)show result:(void (^)(BOOL, DDYContactsAuthStatus))result {
     void (^handleResult)(BOOL, DDYContactsAuthStatus) = ^(BOOL isAuthorized, DDYContactsAuthStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"通讯录"];
@@ -191,7 +119,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 日历权限
-- (void)ddy_EventAuthAlertShow:(BOOL)show result:(void (^)(BOOL, EKAuthorizationStatus))result {
++ (void)ddy_EventAuthAlertShow:(BOOL)show result:(void (^)(BOOL, EKAuthorizationStatus))result {
     void (^handleResult)(BOOL, EKAuthorizationStatus) = ^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"日历"];
@@ -211,7 +139,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 备忘录权限
-- (void)ddy_ReminderAuthAlertShow:(BOOL)show result:(void (^)(BOOL, EKAuthorizationStatus))result {
++ (void)ddy_ReminderAuthAlertShow:(BOOL)show result:(void (^)(BOOL, EKAuthorizationStatus))result {
     void (^handleResult)(BOOL, EKAuthorizationStatus) = ^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"备忘录"];
@@ -240,7 +168,7 @@ static DDYAuthorityManager *_instance;
  *  6.用CTCellularData获取状态，此时粗略得到用户是否授权联网权限。
  */
 #pragma mark 用网络请求方式主动获取一次权限
-- (void)ddy_GetNetAuthWithURL:(NSURL *)url {
++ (void)ddy_GetNetAuthWithURL:(NSURL *)url {
     // 为了快速请求且流量最小化，这里用Head请求，只获取响应头
     NSURLSession *session = [NSURLSession sharedSession];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:(url ? url : [NSURL URLWithString:@"https://www.baidu.com"])];
@@ -255,7 +183,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 联网权限 iOS 10+
-- (void)ddy_NetAuthAlertShow:(BOOL)show result:(void (^)(BOOL, CTCellularDataRestrictedState))result {
++ (void)ddy_NetAuthAlertShow:(BOOL)show result:(void (^)(BOOL, CTCellularDataRestrictedState))result {
     // CTCellularData在iOS9之前是私有类，但联网权限设置是iOS10开始的
     if (@available(iOS 10.0, *)) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DDYNetAuthorityString"];
@@ -288,7 +216,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 推送通知权限 需要在打开 target -> Capabilities —> Push Notifications
-- (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL))result {
++ (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL))result {
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *notiCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notiCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
@@ -324,7 +252,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 定位权限
-- (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL, CLAuthorizationStatus))result {
++ (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL, CLAuthorizationStatus))result {
     // 如果定位服务都未开启，则显示永不(无权限)
     if ([CLLocationManager locationServicesEnabled]) {
         CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
@@ -351,7 +279,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 语音识别(转文字)权限
-- (void)ddy_SpeechAuthAlertShow:(BOOL)show result:(void (^)(BOOL, SFSpeechRecognizerAuthorizationStatus))result {
++ (void)ddy_SpeechAuthAlertShow:(BOOL)show result:(void (^)(BOOL, SFSpeechRecognizerAuthorizationStatus))result {
     void (^handleResult)(BOOL, SFSpeechRecognizerAuthorizationStatus) = ^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {
         if (result) result(isAuthorized, authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"语音识别(转文字)"];
@@ -369,7 +297,7 @@ static DDYAuthorityManager *_instance;
 }
 
 #pragma mark 健康数据权限
-- (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL, HKAuthorizationStatus))result {
++ (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL, HKAuthorizationStatus))result {
     if ([HKHealthStore isHealthDataAvailable]) {
         HKHealthStore *healthStore = [[HKHealthStore alloc] init];
         HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:type];
@@ -384,12 +312,9 @@ static DDYAuthorityManager *_instance;
     }
 }
 
-
-
-
 #pragma mark - 私有方法
 #pragma mark 默认无权限提示
-- (void)showAlertWithAuthName:(NSString *)authName
++ (void)showAlertWithAuthName:(NSString *)authName
 {
     NSString *message = [NSString stringWithFormat:@"请开启%@对%@的权限",[self getAPPName], authName];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -404,9 +329,9 @@ static DDYAuthorityManager *_instance;
     [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:alert animated:YES completion:nil];
 }
 
-- (NSString *)getAPPName {
++ (NSString *)getAPPName {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-//    CFShow((__bridge CFTypeRef)(infoDictionary));
+    //    CFShow((__bridge CFTypeRef)(infoDictionary));
     NSString *bundleDisplayName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     NSString *bundleName = [infoDictionary objectForKey:@"CFBundleName"];
     return (bundleDisplayName != nil ? bundleDisplayName : bundleName);

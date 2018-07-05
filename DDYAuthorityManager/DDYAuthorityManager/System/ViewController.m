@@ -93,14 +93,13 @@
 
 - (void)handleClick:(UIButton *)sender {
     [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:[NSString stringWithFormat:@"%ld_auth", sender.tag]];
-    DDYAuthorityManager *manager = [DDYAuthorityManager sharedManager];
     if (sender.tag == 100) {
-        [manager ddy_AudioAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
+        [DDYAuthorityManager ddy_AudioAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 101) {
-        if ([manager isCameraAvailable]) {
-            [manager ddy_CameraAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
+        if ([DDYAuthorityManager isCameraAvailable]) {
+            [DDYAuthorityManager ddy_CameraAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
                 sender.selected = isAuthorized;
             }];
         } else {
@@ -108,36 +107,36 @@
             NSLog(@"摄像头不可用");
         }
     } else if (sender.tag == 102) {
-        [manager ddy_AlbumAuthAlertShow:YES result:^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
+        [DDYAuthorityManager ddy_AlbumAuthAlertShow:YES result:^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 103) {
-        [manager ddy_ContactsAuthAlertShow:YES result:^(BOOL isAuthorized, DDYContactsAuthStatus authStatus) {
+        [DDYAuthorityManager ddy_ContactsAuthAlertShow:YES result:^(BOOL isAuthorized, DDYContactsAuthStatus authStatus) {
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 104) {
-        [manager ddy_EventAuthAlertShow:YES result:^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
+        [DDYAuthorityManager ddy_EventAuthAlertShow:YES result:^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 105) {
-        [manager ddy_ReminderAuthAlertShow:YES result:^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
+        [DDYAuthorityManager ddy_ReminderAuthAlertShow:YES result:^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 106) {
         if (@available(iOS 10.0, *)) {
-            [manager ddy_NetAuthAlertShow:YES result:^(BOOL isAuthorized, CTCellularDataRestrictedState authStatus) {
+            [DDYAuthorityManager ddy_NetAuthAlertShow:YES result:^(BOOL isAuthorized, CTCellularDataRestrictedState authStatus) {
                 sender.selected = isAuthorized;
             }];
         } else {
             sender.selected = YES;
         }
     } else if (sender.tag == 107) {
-        [manager ddy_PushNotificationAuthAlertShow:YES result:^(BOOL isAuthorized) {
+        [DDYAuthorityManager ddy_PushNotificationAuthAlertShow:YES result:^(BOOL isAuthorized) {
             sender.selected = isAuthorized;
         }];
     } else if (sender.tag == 108) {
         if ([CLLocationManager locationServicesEnabled]) {
-            [manager ddy_LocationAuthType:DDYCLLocationTypeInUse alertShow:YES result:^(BOOL isAuthorized, CLAuthorizationStatus authStatus) {
+            [DDYAuthorityManager ddy_LocationAuthType:DDYCLLocationTypeInUse alertShow:YES result:^(BOOL isAuthorized, CLAuthorizationStatus authStatus) {
                 sender.selected = isAuthorized;
             }];
         } else {
@@ -147,7 +146,7 @@
         
     } else if (sender.tag == 109) {
         if (@available(iOS 10.0, *)) {
-            [manager ddy_SpeechAuthAlertShow:YES result:^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {
+            [DDYAuthorityManager ddy_SpeechAuthAlertShow:YES result:^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {
                 sender.selected = isAuthorized;
             }];
         } else {

@@ -19,7 +19,7 @@
 @import Speech;
 // FaceID权限使用
 @import LocalAuthentication;
-//
+// 健康数据权限使用
 @import HealthKit;
 
 /** 通讯录兼容(iOS 9- 和 iOS 9+)权限状态 */
@@ -45,87 +45,76 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
 
 @interface DDYAuthorityManager : NSObject
 
-/** 创建单例对象 */
-+ (instancetype)sharedManager;
-
 /**
  麦克风权限 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_AudioAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, AVAuthorizationStatus authStatus))result;
++ (void)ddy_AudioAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, AVAuthorizationStatus authStatus))result;
 
 /**
  摄像头(相机)权限 带主动请权 使用前最好先判断摄像头是否可用
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_CameraAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, AVAuthorizationStatus authStatus))result;
++ (void)ddy_CameraAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, AVAuthorizationStatus authStatus))result;
 
 /** 判断设备摄像头是否可用 */
-- (BOOL)isCameraAvailable;
++ (BOOL)isCameraAvailable;
 
 /** 前面的摄像头是否可用 */
-- (BOOL)isFrontCameraAvailable;
++ (BOOL)isFrontCameraAvailable;
 
 /** 后面的摄像头是否可用 */
- - (BOOL)isRearCameraAvailable;
++ (BOOL)isRearCameraAvailable;
 
 /**
  相册权限 iOS 8+ 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_AlbumAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, PHAuthorizationStatus authStatus))result;
-
-/**
- 相册权限 iOS 6-9 带主动请权
- @param show 无权限时默认提示
- @param outTime 鉴权超时时间(因为系统不提供用户点击回调，此处采用轮询, 0永不超时)
- @param result 鉴权结果
- */
-- (void)ddy_AlbumOldAuthAlertShow:(BOOL)show outTime:(NSUInteger)outTime result:(void (^)(BOOL isAuthorized, ALAuthorizationStatus authStatus))result;
++ (void)ddy_AlbumAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, PHAuthorizationStatus authStatus))result;
 
 /**
  通讯录权限 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_ContactsAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, DDYContactsAuthStatus authStatus))result;
++ (void)ddy_ContactsAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, DDYContactsAuthStatus authStatus))result;
 
 /**
  日历权限 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_EventAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, EKAuthorizationStatus authStatus))result;
++ (void)ddy_EventAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, EKAuthorizationStatus authStatus))result;
 
 /**
  备忘录权限 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_ReminderAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, EKAuthorizationStatus authStatus))result;
++ (void)ddy_ReminderAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, EKAuthorizationStatus authStatus))result;
 
 /**
  用网络请求方式主动获取一次权限 首次安装才可能联网权限弹窗(如果弹窗时没点击任何信息直接关机，下次启动仍视为首次)
  @param url 要请求的URL 如:www.baidu.com
  */
-- (void)ddy_GetNetAuthWithURL:(NSURL *)url;
++ (void)ddy_GetNetAuthWithURL:(NSURL *)url;
 
 /**
  联网权限 iOS 10+ 不带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_NetAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, CTCellularDataRestrictedState authStatus))result API_AVAILABLE(ios(10.0));
++ (void)ddy_NetAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, CTCellularDataRestrictedState authStatus))result API_AVAILABLE(ios(10.0));
 
 /**
  推送通知权限 需要在打开 target -> Capabilities —> Push Notifications iOS10+带主动请权，iOS9-不带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果 只返回是否有权限推送，不返回具体权限(badge,alert,sound)
  */
-- (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized))result;
++ (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized))result;
 
 /**
  定位权限 不带主动请权 使用前先判断服务是否开启 [CLLocationManager locationServicesEnabled]
@@ -133,14 +122,14 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
  @param show 无权限时默认提示
  @param result 鉴权结果 如果是kCLAuthorizationStatusNotDetermined未经弹框(或者弹框未任何操作，例如弹框时关机)，则需特殊处理
  */
-- (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, CLAuthorizationStatus authStatus))result;
++ (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, CLAuthorizationStatus authStatus))result;
 
 /**
  语音识别(转文字)权限 带主动请权
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_SpeechAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus))result API_AVAILABLE(ios(10.0));
++ (void)ddy_SpeechAuthAlertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus))result API_AVAILABLE(ios(10.0));
 
 /**
  健康数据权限 不带主动请权 使用前先判断健康数据是否可用 [HKHealthStore isHealthDataAvailable]
@@ -148,7 +137,7 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
  @param show 无权限时默认提示
  @param result 鉴权结果
  */
-- (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, HKAuthorizationStatus authStatus))result;
++ (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL isAuthorized, HKAuthorizationStatus authStatus))result;
 
 @end
 /**
