@@ -94,51 +94,51 @@
 - (void)handleClick:(UIButton *)sender {
     [[NSUserDefaults standardUserDefaults] setValue:@"1" forKey:[NSString stringWithFormat:@"%ld_auth", sender.tag]];
     if (sender.tag == 100) {
-        [DDYAuthorityManager ddy_AudioAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        [DDYAuthorityManager ddy_AudioAuthAlertShow:YES success:^{
+            sender.selected = YES;
+        } fail:^(AVAuthorizationStatus authStatus) { }];
     } else if (sender.tag == 101) {
         if ([DDYAuthorityManager isCameraAvailable]) {
-            [DDYAuthorityManager ddy_CameraAuthAlertShow:YES result:^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
-                sender.selected = isAuthorized;
-            }];
+            [DDYAuthorityManager ddy_CameraAuthAlertShow:YES success:^{
+                sender.selected = YES;
+            } fail:^(AVAuthorizationStatus authStatus) { }];
         } else {
             sender.selected = NO;
             NSLog(@"摄像头不可用");
         }
     } else if (sender.tag == 102) {
-        [DDYAuthorityManager ddy_AlbumAuthAlertShow:YES result:^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        [DDYAuthorityManager ddy_AlbumAuthAlertShow:YES success:^{
+            sender.selected = YES;
+        } fail:^(PHAuthorizationStatus authStatus) { }];
     } else if (sender.tag == 103) {
-        [DDYAuthorityManager ddy_ContactsAuthAlertShow:YES result:^(BOOL isAuthorized, DDYContactsAuthStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        [DDYAuthorityManager ddy_ContactsAuthAlertShow:YES success:^{
+            sender.selected = YES;
+        } fail:^(DDYContactsAuthStatus authStatus) { }];
     } else if (sender.tag == 104) {
-        [DDYAuthorityManager ddy_EventAuthAlertShow:YES result:^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        [DDYAuthorityManager ddy_EventAuthAlertShow:YES success:^{
+            sender.selected = YES;
+        } fail:^(EKAuthorizationStatus authStatus) { }];
     } else if (sender.tag == 105) {
-        [DDYAuthorityManager ddy_ReminderAuthAlertShow:YES result:^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
-            sender.selected = isAuthorized;
-        }];
+        [DDYAuthorityManager ddy_ReminderAuthAlertShow:YES success:^{
+            sender.selected = YES;
+        } fail:^(EKAuthorizationStatus authStatus) { }];
     } else if (sender.tag == 106) {
         if (@available(iOS 10.0, *)) {
-            [DDYAuthorityManager ddy_NetAuthAlertShow:YES result:^(BOOL isAuthorized, CTCellularDataRestrictedState authStatus) {
-                sender.selected = isAuthorized;
-            }];
+            [DDYAuthorityManager ddy_NetAuthAlertShow:YES success:^{
+                sender.selected = YES;
+            } fail:^(CTCellularDataRestrictedState authStatus) { }];
         } else {
             sender.selected = YES;
         }
     } else if (sender.tag == 107) {
-        [DDYAuthorityManager ddy_PushNotificationAuthAlertShow:YES result:^(BOOL isAuthorized) {
-            sender.selected = isAuthorized;
-        }];
+        [DDYAuthorityManager ddy_PushNotificationAuthAlertShow:YES success:^{
+            sender.selected = YES;
+        } fail:^{ }];
     } else if (sender.tag == 108) {
         if ([CLLocationManager locationServicesEnabled]) {
-            [DDYAuthorityManager ddy_LocationAuthType:DDYCLLocationTypeInUse alertShow:YES result:^(BOOL isAuthorized, CLAuthorizationStatus authStatus) {
-                sender.selected = isAuthorized;
-            }];
+            [DDYAuthorityManager ddy_LocationAuthType:DDYCLLocationTypeInUse alertShow:YES success:^{
+                sender.selected = YES;
+            } fail:^(CLAuthorizationStatus authStatus) { }];
         } else {
             sender.selected = NO;
             NSLog(@"定位服务未开启");
@@ -146,9 +146,9 @@
         
     } else if (sender.tag == 109) {
         if (@available(iOS 10.0, *)) {
-            [DDYAuthorityManager ddy_SpeechAuthAlertShow:YES result:^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {
-                sender.selected = isAuthorized;
-            }];
+            [DDYAuthorityManager ddy_SpeechAuthAlertShow:YES success:^{
+                sender.selected = YES;
+            } fail:^(SFSpeechRecognizerAuthorizationStatus authStatus) { }]; 
         } else {
             sender.selected = NO;
             [self showAlertWithMessage:@"iOS10+才有"];

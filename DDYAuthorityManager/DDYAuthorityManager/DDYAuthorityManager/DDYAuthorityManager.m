@@ -5,9 +5,10 @@
 @implementation DDYAuthorityManager
 
 #pragma mark 麦克风权限
-+ (void)ddy_AudioAuthAlertShow:(BOOL)show result:(void (^)(BOOL, AVAuthorizationStatus))result {
++ (void)ddy_AudioAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(AVAuthorizationStatus))fail {
     void (^handleResult)(BOOL, AVAuthorizationStatus) = ^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"麦克风"];
     };
     
@@ -24,9 +25,10 @@
 }
 
 #pragma mark 摄像头(相机)权限
-+ (void)ddy_CameraAuthAlertShow:(BOOL)show result:(void (^)(BOOL, AVAuthorizationStatus))result {
++ (void)ddy_CameraAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(AVAuthorizationStatus))fail {
     void (^handleResult)(BOOL, AVAuthorizationStatus) = ^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"摄像头"];
     };
     
@@ -58,9 +60,10 @@
 }
 
 #pragma mark 相册使用权限(iOS 8+)
-+ (void)ddy_AlbumAuthAlertShow:(BOOL)show result:(void (^)(BOOL, PHAuthorizationStatus))result {
++ (void)ddy_AlbumAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(PHAuthorizationStatus))fail {
     void (^handleResult)(BOOL, PHAuthorizationStatus) = ^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"相册"];
     };
     
@@ -77,9 +80,10 @@
 }
 
 #pragma mark 通讯录权限
-+ (void)ddy_ContactsAuthAlertShow:(BOOL)show result:(void (^)(BOOL, DDYContactsAuthStatus))result {
++ (void)ddy_ContactsAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(DDYContactsAuthStatus))fail {
     void (^handleResult)(BOOL, DDYContactsAuthStatus) = ^(BOOL isAuthorized, DDYContactsAuthStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"通讯录"];
     };
     
@@ -119,9 +123,10 @@
 }
 
 #pragma mark 日历权限
-+ (void)ddy_EventAuthAlertShow:(BOOL)show result:(void (^)(BOOL, EKAuthorizationStatus))result {
++ (void)ddy_EventAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(EKAuthorizationStatus))fail {
     void (^handleResult)(BOOL, EKAuthorizationStatus) = ^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"日历"];
     };
     
@@ -139,9 +144,10 @@
 }
 
 #pragma mark 备忘录权限
-+ (void)ddy_ReminderAuthAlertShow:(BOOL)show result:(void (^)(BOOL, EKAuthorizationStatus))result {
++ (void)ddy_ReminderAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(EKAuthorizationStatus))fail {
     void (^handleResult)(BOOL, EKAuthorizationStatus) = ^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"备忘录"];
     };
     
@@ -158,7 +164,7 @@
     }
 }
 
-/** 关于APP首次安装(卸载重装不会再弹窗)联网权限弹窗，无法得知用户是否点击允许或不允许(苹果没有给出api),所以常规按以下流程自行判断
+/** 关于APP首次安装(一旦用户选择后即使卸载重装也不会再弹窗)联网权限弹窗，无法得知用户是否点击允许或不允许(苹果没有给出api),所以常规按以下流程自行判断
  *  1.用keychain记录是否是首次安装(和弹窗一致)，若是首次安装则启动APP后进入特定界面(如引导页),如果不是那么严格忽略该步骤。
  *  2.用 -checkNetworkConnectWhenAirplaneModeOrNoWlanCellular 判断是否特殊情况(完全无网络时首次启动APP，不会联网权限弹窗)。
  *  3.若第二步通过(如果不考虑极端情况直接该步骤)，用户有以太网进入则发送网络请求(最好head请求，省流量且更快速)，如果是首次联网则可能弹窗。
@@ -183,19 +189,24 @@
 }
 
 #pragma mark 联网权限 iOS 10+
-+ (void)ddy_NetAuthAlertShow:(BOOL)show result:(void (^)(BOOL, CTCellularDataRestrictedState))result {
++ (void)ddy_NetAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(CTCellularDataRestrictedState))fail {
     // CTCellularData在iOS9之前是私有类，但联网权限设置是iOS10开始的
     if (@available(iOS 10.0, *)) {
+        void (^handleResult)(BOOL, CTCellularDataRestrictedState) = ^(BOOL isAuthorized, CTCellularDataRestrictedState authStatus) {
+            if (isAuthorized && success) success();
+            if (!isAuthorized && fail) fail(authStatus);
+            if (isAuthorized == kCTCellularDataRestricted && show) [self showAlertWithAuthName:@"网络"];
+        };
+        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DDYNetAuthorityString"];
         CTCellularData *cellularData = [[CTCellularData alloc] init];
         CTCellularDataRestrictedState authState = cellularData.restrictedState;
         if (authState == kCTCellularDataNotRestricted) {
-            if (result) result(YES, authState);
+            handleResult(YES, authState);
         } else if (authState == kCTCellularDataRestricted) {
-            if (result) result(NO, authState);
-            if (show) [self showAlertWithAuthName:@"网络"];
+            handleResult(NO, authState);
         } else {
-            if (result) result(NO, authState);
+            handleResult(NO, authState);
             static dispatch_once_t onceToken;
             dispatch_once(&onceToken, ^{
                 [self ddy_GetNetAuthWithURL:nil];
@@ -205,10 +216,10 @@
         cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (state == kCTCellularDataNotRestricted) {
-                    if (authState != state && result) result(YES, state);
+                    if (authState != state) handleResult(YES, state);
                 } else {
-                    if (authState != state && result) result(NO, state);
-                    if (show && authState != state) [self showAlertWithAuthName:@"网络"];
+                    if (authState != state) handleResult(NO, state);
+                    if (show && authState != state) handleResult(NO, authState);
                 }
             });
         };
@@ -216,20 +227,22 @@
 }
 
 #pragma mark 推送通知权限 需要在打开 target -> Capabilities —> Push Notifications
-+ (void)ddy_PushNotificationAuthAlertShow:(BOOL)show result:(void (^)(BOOL))result {
++ (void)ddy_PushNotificationAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(void))fail {
     if (@available(iOS 10.0, *)) {
         UNUserNotificationCenter *notiCenter = [UNUserNotificationCenter currentNotificationCenter];
         [notiCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
             if (settings.authorizationStatus == UNAuthorizationStatusNotDetermined) {
                 [notiCenter requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        if (result) result(granted);
+                        if (granted && success) success();
+                        if (!granted && fail) fail();
                         if (show && !granted) [self showAlertWithAuthName:@"通知"];
                     });
                 }];
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (result) result(settings.authorizationStatus == UNAuthorizationStatusAuthorized);
+                    if (settings.authorizationStatus == UNAuthorizationStatusAuthorized && success) success();
+                    if (settings.authorizationStatus != UNAuthorizationStatusAuthorized && fail) fail();
                     if (show && settings.authorizationStatus == UNAuthorizationStatusDenied) [self showAlertWithAuthName:@"通知"];
                 });
             }
@@ -238,13 +251,15 @@
         if (@available(iOS 8.0, *)) {
             UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];
             // UIUserNotificationTypeNone 收到通知不呈现UI，可能无权限也可能还未询问权限
-            if (result) result(settings.types == UIUserNotificationTypeNone ? NO : YES);
+            if (settings.types != UIUserNotificationTypeNone && success) success();
+            if (settings.types == UIUserNotificationTypeNone && fail) fail();
             if (show && settings.types == UIUserNotificationTypeNone) [self showAlertWithAuthName:@"通知"];
         } else {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
             UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-            if (result) result(type == UIRemoteNotificationTypeNone ? NO : YES);
+            if (type != UIRemoteNotificationTypeNone && success) success();
+            if (type == UIRemoteNotificationTypeNone && fail) fail();
             if (show && type == UIRemoteNotificationTypeNone) [self showAlertWithAuthName:@"通知"];
 #pragma clang diagnostic pop
         }
@@ -252,7 +267,7 @@
 }
 
 #pragma mark 定位权限
-+ (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show result:(void (^)(BOOL, CLAuthorizationStatus))result {
++ (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(CLAuthorizationStatus))fail{
     // 如果定位服务都未开启，则显示永不(无权限)
     if ([CLLocationManager locationServicesEnabled]) {
         CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
@@ -264,13 +279,13 @@
         }
 #pragma clang diagnostic pop
         if (authStatus == kCLAuthorizationStatusAuthorizedAlways) {
-            if (result) result(YES, kCLAuthorizationStatusAuthorizedAlways);
+            if (success) success();
         } else if (authStatus == kCLAuthorizationStatusAuthorizedWhenInUse && type == DDYCLLocationTypeInUse) {
-            if (result) result(YES, kCLAuthorizationStatusAuthorizedWhenInUse);
+            if (success) success();
         } else if (authStatus == kCLAuthorizationStatusAuthorizedWhenInUse && type == DDYCLLocationTypeAlways) {
-            if (result) result(NO, kCLAuthorizationStatusAuthorizedWhenInUse);
+            if (fail) fail(kCLAuthorizationStatusAuthorizedWhenInUse);
         } else {
-            if (result) result(NO, authStatus);
+            if (fail) fail(authStatus);
             if (show) [self showAlertWithAuthName:@"定位"];
         }
     } else {
@@ -279,9 +294,10 @@
 }
 
 #pragma mark 语音识别(转文字)权限
-+ (void)ddy_SpeechAuthAlertShow:(BOOL)show result:(void (^)(BOOL, SFSpeechRecognizerAuthorizationStatus))result {
++ (void)ddy_SpeechAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(SFSpeechRecognizerAuthorizationStatus))fail {
     void (^handleResult)(BOOL, SFSpeechRecognizerAuthorizationStatus) = ^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {
-        if (result) result(isAuthorized, authStatus);
+        if (isAuthorized && success) success();
+        if (!isAuthorized && fail) fail(authStatus);
         if (!isAuthorized && show) [self showAlertWithAuthName:@"语音识别(转文字)"];
     };
     SFSpeechRecognizerAuthorizationStatus authStatus = [SFSpeechRecognizer authorizationStatus];
@@ -297,13 +313,15 @@
 }
 
 #pragma mark 健康数据权限
-+ (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show result:(void (^)(BOOL, HKAuthorizationStatus))result {
++ (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(HKAuthorizationStatus))fail {
     if ([HKHealthStore isHealthDataAvailable]) {
         HKHealthStore *healthStore = [[HKHealthStore alloc] init];
         HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:type];
         if (quantityType) {
             HKAuthorizationStatus authStatus = [healthStore authorizationStatusForType:quantityType];
-            result(authStatus == HKAuthorizationStatusSharingAuthorized, authStatus);
+            if (authStatus == HKAuthorizationStatusSharingAuthorized && success) success();
+            if (authStatus != HKAuthorizationStatusSharingAuthorized && fail) fail(authStatus);
+            if (authStatus != HKAuthorizationStatusSharingAuthorized && show) [self showAlertWithAuthName:@"健康数据"];
         } else {
             NSLog(@"type error");
         }
