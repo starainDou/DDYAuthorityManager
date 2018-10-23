@@ -7,21 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0307834920DF8ADA00C04DD7 /* NSTimer+DDYExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0307833C20DF8ADA00C04DD7 /* NSTimer+DDYExtension.m */; };
-		0307834A20DF8ADA00C04DD7 /* DDYAuthorityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0307833D20DF8ADA00C04DD7 /* DDYAuthorityManager.m */; };
 		0307834B20DF8ADA00C04DD7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0307834020DF8ADA00C04DD7 /* ViewController.m */; };
 		0307834C20DF8ADA00C04DD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0307834120DF8ADA00C04DD7 /* LaunchScreen.storyboard */; };
 		0307834D20DF8ADA00C04DD7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0307834320DF8ADA00C04DD7 /* main.m */; };
 		0307834E20DF8ADA00C04DD7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0307834420DF8ADA00C04DD7 /* AppDelegate.m */; };
 		0307835120DF8ADA00C04DD7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0307834720DF8ADA00C04DD7 /* Info.plist */; };
+		9E37B27E6402EE916CF69562 /* libPods-DDYAuthorityManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08145519FE7805B6A1F4B66C /* libPods-DDYAuthorityManager.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0307832020DF8AB000C04DD7 /* DDYAuthorityManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DDYAuthorityManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0307833A20DF8ADA00C04DD7 /* DDYAuthorityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDYAuthorityManager.h; sourceTree = "<group>"; };
-		0307833B20DF8ADA00C04DD7 /* NSTimer+DDYExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+DDYExtension.h"; sourceTree = "<group>"; };
-		0307833C20DF8ADA00C04DD7 /* NSTimer+DDYExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+DDYExtension.m"; sourceTree = "<group>"; };
-		0307833D20DF8ADA00C04DD7 /* DDYAuthorityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDYAuthorityManager.m; sourceTree = "<group>"; };
 		0307833F20DF8ADA00C04DD7 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0307834020DF8ADA00C04DD7 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0307834220DF8ADA00C04DD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -29,6 +24,9 @@
 		0307834420DF8ADA00C04DD7 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0307834720DF8ADA00C04DD7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0307834820DF8ADA00C04DD7 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		08145519FE7805B6A1F4B66C /* libPods-DDYAuthorityManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DDYAuthorityManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		959F405F0B7FF4F8C823CF04 /* Pods-DDYAuthorityManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDYAuthorityManager.release.xcconfig"; path = "Target Support Files/Pods-DDYAuthorityManager/Pods-DDYAuthorityManager.release.xcconfig"; sourceTree = "<group>"; };
+		B9F9CA9D4A1C60097788FBED /* Pods-DDYAuthorityManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DDYAuthorityManager.debug.xcconfig"; path = "Target Support Files/Pods-DDYAuthorityManager/Pods-DDYAuthorityManager.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E37B27E6402EE916CF69562 /* libPods-DDYAuthorityManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +46,8 @@
 			children = (
 				0307832220DF8AB000C04DD7 /* DDYAuthorityManager */,
 				0307832120DF8AB000C04DD7 /* Products */,
+				F4BFAC2F5AFB270C636A1757 /* Pods */,
+				84C1CB6300C66FC6EBB28A6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,19 +62,7 @@
 		0307832220DF8AB000C04DD7 /* DDYAuthorityManager */ = {
 			isa = PBXGroup;
 			children = (
-				0307833920DF8ADA00C04DD7 /* DDYAuthorityManager */,
 				0307833E20DF8ADA00C04DD7 /* System */,
-			);
-			path = DDYAuthorityManager;
-			sourceTree = "<group>";
-		};
-		0307833920DF8ADA00C04DD7 /* DDYAuthorityManager */ = {
-			isa = PBXGroup;
-			children = (
-				0307833B20DF8ADA00C04DD7 /* NSTimer+DDYExtension.h */,
-				0307833C20DF8ADA00C04DD7 /* NSTimer+DDYExtension.m */,
-				0307833A20DF8ADA00C04DD7 /* DDYAuthorityManager.h */,
-				0307833D20DF8ADA00C04DD7 /* DDYAuthorityManager.m */,
 			);
 			path = DDYAuthorityManager;
 			sourceTree = "<group>";
@@ -92,6 +81,23 @@
 			path = System;
 			sourceTree = "<group>";
 		};
+		84C1CB6300C66FC6EBB28A6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				08145519FE7805B6A1F4B66C /* libPods-DDYAuthorityManager.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F4BFAC2F5AFB270C636A1757 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B9F9CA9D4A1C60097788FBED /* Pods-DDYAuthorityManager.debug.xcconfig */,
+				959F405F0B7FF4F8C823CF04 /* Pods-DDYAuthorityManager.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,9 +105,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0307833620DF8AB600C04DD7 /* Build configuration list for PBXNativeTarget "DDYAuthorityManager" */;
 			buildPhases = (
+				202C615D4E0224D9E23DF401 /* [CP] Check Pods Manifest.lock */,
 				0307831C20DF8AB000C04DD7 /* Sources */,
 				0307831D20DF8AB000C04DD7 /* Frameworks */,
 				0307831E20DF8AB000C04DD7 /* Resources */,
+				6D4DC5987C59DE3E594DC394 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,15 +172,52 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		202C615D4E0224D9E23DF401 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DDYAuthorityManager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D4DC5987C59DE3E594DC394 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DDYAuthorityManager/Pods-DDYAuthorityManager-resources.sh",
+				"${PODS_ROOT}/DDYAuthManager/DDYAuthManager/DDYAuthManager/DDYAuthManager.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DDYAuthManager.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DDYAuthorityManager/Pods-DDYAuthorityManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0307831C20DF8AB000C04DD7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				0307834B20DF8ADA00C04DD7 /* ViewController.m in Sources */,
-				0307834920DF8ADA00C04DD7 /* NSTimer+DDYExtension.m in Sources */,
 				0307834E20DF8ADA00C04DD7 /* AppDelegate.m in Sources */,
-				0307834A20DF8ADA00C04DD7 /* DDYAuthorityManager.m in Sources */,
 				0307834D20DF8ADA00C04DD7 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +348,7 @@
 		};
 		0307833720DF8AB600C04DD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9F9CA9D4A1C60097788FBED /* Pods-DDYAuthorityManager.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23JJ7VRKJT;
@@ -320,6 +366,7 @@
 		};
 		0307833820DF8AB600C04DD7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 959F405F0B7FF4F8C823CF04 /* Pods-DDYAuthorityManager.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 23JJ7VRKJT;

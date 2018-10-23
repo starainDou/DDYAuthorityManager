@@ -1,0 +1,517 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E1183F9F34BBAB1C0346BEE1C31096A /* DDYAuthManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B9355A5EE751D3ACA8DFF83DDF323 /* DDYAuthManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0E1C02C0114625DC2BD2C3E0693FC2CC /* NSBundle+DDYAuthManger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C48D7A239EAD087338ADC31CCB7F9FC /* NSBundle+DDYAuthManger.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1C42A8A65D9B629FF1D8CEDDCD5A38FE /* NSBundle+DDYAuthManger.m in Sources */ = {isa = PBXBuildFile; fileRef = B44D720089CF258557BF40E272485962 /* NSBundle+DDYAuthManger.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		3A0FB8F03F8A7625F3316C4322F93502 /* DDYAuthManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 68E7E6D02B4B7978A43B04F9B99AD56D /* DDYAuthManager-dummy.m */; };
+		AE44F43837354BFE44767975E85A6333 /* DDYAuthManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E8642BB8A341EF346E0996B5A6E5EA /* DDYAuthManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E1CFD4D8024D1316BD649BC091047F48 /* Pods-DDYAuthorityManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5122ED3399057983D75B93B0BD308BAA /* Pods-DDYAuthorityManager-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		618169EF90DB0D2E61096AEDEF2C3264 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C1710F6EB629657C96480F3F6EA044E7;
+			remoteInfo = DDYAuthManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		376BA4F233A70334B7603193AEAC8715 /* libDDYAuthManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libDDYAuthManager.a; path = libDDYAuthManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C9B9355A5EE751D3ACA8DFF83DDF323 /* DDYAuthManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDYAuthManager.m; path = DDYAuthManager/DDYAuthManager/DDYAuthManager.m; sourceTree = "<group>"; };
+		47C0A7E4BDEF02A6BE06AE740BBEAC6D /* DDYAuthManager.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = DDYAuthManager.bundle; path = DDYAuthManager/DDYAuthManager/DDYAuthManager.bundle; sourceTree = "<group>"; };
+		48B0EE74E7FD99D6E8F44CB486835AA8 /* DDYAuthManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DDYAuthManager.xcconfig; sourceTree = "<group>"; };
+		50B24B123CF036ECE93607C76747C464 /* Pods-DDYAuthorityManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DDYAuthorityManager.debug.xcconfig"; sourceTree = "<group>"; };
+		5122ED3399057983D75B93B0BD308BAA /* Pods-DDYAuthorityManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-DDYAuthorityManager-dummy.m"; sourceTree = "<group>"; };
+		552B3ED35686EF0B7F2DFC25DE91B3DE /* Pods-DDYAuthorityManager-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DDYAuthorityManager-acknowledgements.markdown"; sourceTree = "<group>"; };
+		68E7E6D02B4B7978A43B04F9B99AD56D /* DDYAuthManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DDYAuthManager-dummy.m"; sourceTree = "<group>"; };
+		6C48D7A239EAD087338ADC31CCB7F9FC /* NSBundle+DDYAuthManger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSBundle+DDYAuthManger.h"; path = "DDYAuthManager/DDYAuthManager/NSBundle+DDYAuthManger.h"; sourceTree = "<group>"; };
+		749428D7BE75651F5158E47F97DA8E5A /* libPods-DDYAuthorityManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-DDYAuthorityManager.a"; path = "libPods-DDYAuthorityManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		95E8642BB8A341EF346E0996B5A6E5EA /* DDYAuthManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDYAuthManager.h; path = DDYAuthManager/DDYAuthManager/DDYAuthManager.h; sourceTree = "<group>"; };
+		B12DC22C6B7496F8BB6A1829B4E81438 /* Pods-DDYAuthorityManager-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DDYAuthorityManager-acknowledgements.plist"; sourceTree = "<group>"; };
+		B44D720089CF258557BF40E272485962 /* NSBundle+DDYAuthManger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+DDYAuthManger.m"; path = "DDYAuthManager/DDYAuthManager/NSBundle+DDYAuthManger.m"; sourceTree = "<group>"; };
+		DC7A487589F8BD9BADC79CADC79D8353 /* Pods-DDYAuthorityManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-DDYAuthorityManager.release.xcconfig"; sourceTree = "<group>"; };
+		DF209B9FDA70515709A12A46AD2CC9C8 /* Pods-DDYAuthorityManager-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DDYAuthorityManager-resources.sh"; sourceTree = "<group>"; };
+		FD17D6E4CC3F40B006E4E9EA49A69859 /* DDYAuthManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DDYAuthManager-prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5606313D2A4B2F20D1A52FE0A0A2E061 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		660A8FFC883AED5F44BF3D8EB2D9B7B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6BB34EE223060C7D317840EEEE22CFF6 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A9D2B19E8BD3C6A706268916A0139273 /* Pods-DDYAuthorityManager */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		6BB549310B8867DE5F778175F050683F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				79B71696276C7093D19A06AAAF7CDD7C /* DDYAuthManager */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		79B71696276C7093D19A06AAAF7CDD7C /* DDYAuthManager */ = {
+			isa = PBXGroup;
+			children = (
+				95E8642BB8A341EF346E0996B5A6E5EA /* DDYAuthManager.h */,
+				3C9B9355A5EE751D3ACA8DFF83DDF323 /* DDYAuthManager.m */,
+				6C48D7A239EAD087338ADC31CCB7F9FC /* NSBundle+DDYAuthManger.h */,
+				B44D720089CF258557BF40E272485962 /* NSBundle+DDYAuthManger.m */,
+				A29603021711D6B2B0EB4712B388AC74 /* Resources */,
+				D458972B98032FF64EB0ED2DEE0B908D /* Support Files */,
+			);
+			name = DDYAuthManager;
+			path = DDYAuthManager;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
+				6BB549310B8867DE5F778175F050683F /* Pods */,
+				E46350D349F289801D6E80C7618B4694 /* Products */,
+				6BB34EE223060C7D317840EEEE22CFF6 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		A29603021711D6B2B0EB4712B388AC74 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				47C0A7E4BDEF02A6BE06AE740BBEAC6D /* DDYAuthManager.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A9D2B19E8BD3C6A706268916A0139273 /* Pods-DDYAuthorityManager */ = {
+			isa = PBXGroup;
+			children = (
+				552B3ED35686EF0B7F2DFC25DE91B3DE /* Pods-DDYAuthorityManager-acknowledgements.markdown */,
+				B12DC22C6B7496F8BB6A1829B4E81438 /* Pods-DDYAuthorityManager-acknowledgements.plist */,
+				5122ED3399057983D75B93B0BD308BAA /* Pods-DDYAuthorityManager-dummy.m */,
+				DF209B9FDA70515709A12A46AD2CC9C8 /* Pods-DDYAuthorityManager-resources.sh */,
+				50B24B123CF036ECE93607C76747C464 /* Pods-DDYAuthorityManager.debug.xcconfig */,
+				DC7A487589F8BD9BADC79CADC79D8353 /* Pods-DDYAuthorityManager.release.xcconfig */,
+			);
+			name = "Pods-DDYAuthorityManager";
+			path = "Target Support Files/Pods-DDYAuthorityManager";
+			sourceTree = "<group>";
+		};
+		D458972B98032FF64EB0ED2DEE0B908D /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				48B0EE74E7FD99D6E8F44CB486835AA8 /* DDYAuthManager.xcconfig */,
+				68E7E6D02B4B7978A43B04F9B99AD56D /* DDYAuthManager-dummy.m */,
+				FD17D6E4CC3F40B006E4E9EA49A69859 /* DDYAuthManager-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/DDYAuthManager";
+			sourceTree = "<group>";
+		};
+		E46350D349F289801D6E80C7618B4694 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				376BA4F233A70334B7603193AEAC8715 /* libDDYAuthManager.a */,
+				749428D7BE75651F5158E47F97DA8E5A /* libPods-DDYAuthorityManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		55A3E79816593AFB3D715C5A1A8BE601 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE44F43837354BFE44767975E85A6333 /* DDYAuthManager.h in Headers */,
+				0E1C02C0114625DC2BD2C3E0693FC2CC /* NSBundle+DDYAuthManger.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD1A584D73CEF7979F52C5342EDD38F2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2F0B46B38151024DF8FC3C1B1DE69F2B /* Pods-DDYAuthorityManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F8111DAEA2B0CF50EF2BBB398F072CCF /* Build configuration list for PBXNativeTarget "Pods-DDYAuthorityManager" */;
+			buildPhases = (
+				DD1A584D73CEF7979F52C5342EDD38F2 /* Headers */,
+				634D0E5336B7254DEB5A9ADB2838161A /* Sources */,
+				660A8FFC883AED5F44BF3D8EB2D9B7B5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D6F3688FFC5C25881F44D07D3028C5CC /* PBXTargetDependency */,
+			);
+			name = "Pods-DDYAuthorityManager";
+			productName = "Pods-DDYAuthorityManager";
+			productReference = 749428D7BE75651F5158E47F97DA8E5A /* libPods-DDYAuthorityManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C1710F6EB629657C96480F3F6EA044E7 /* DDYAuthManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D80C01E2D41CC054E7E78F0F8C06D4 /* Build configuration list for PBXNativeTarget "DDYAuthManager" */;
+			buildPhases = (
+				55A3E79816593AFB3D715C5A1A8BE601 /* Headers */,
+				8632C56423F0173995848A73D2092B16 /* Sources */,
+				5606313D2A4B2F20D1A52FE0A0A2E061 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DDYAuthManager;
+			productName = DDYAuthManager;
+			productReference = 376BA4F233A70334B7603193AEAC8715 /* libDDYAuthManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = E46350D349F289801D6E80C7618B4694 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C1710F6EB629657C96480F3F6EA044E7 /* DDYAuthManager */,
+				2F0B46B38151024DF8FC3C1B1DE69F2B /* Pods-DDYAuthorityManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		634D0E5336B7254DEB5A9ADB2838161A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1CFD4D8024D1316BD649BC091047F48 /* Pods-DDYAuthorityManager-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8632C56423F0173995848A73D2092B16 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A0FB8F03F8A7625F3316C4322F93502 /* DDYAuthManager-dummy.m in Sources */,
+				0E1183F9F34BBAB1C0346BEE1C31096A /* DDYAuthManager.m in Sources */,
+				1C42A8A65D9B629FF1D8CEDDCD5A38FE /* NSBundle+DDYAuthManger.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D6F3688FFC5C25881F44D07D3028C5CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DDYAuthManager;
+			target = C1710F6EB629657C96480F3F6EA044E7 /* DDYAuthManager */;
+			targetProxy = 618169EF90DB0D2E61096AEDEF2C3264 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4FC7D964A6ABD6141573664D44791EB5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC7A487589F8BD9BADC79CADC79D8353 /* Pods-DDYAuthorityManager.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5354C4F961EAFC5F5833BD694C9BEEA6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48B0EE74E7FD99D6E8F44CB486835AA8 /* DDYAuthManager.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/DDYAuthManager/DDYAuthManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = DDYAuthManager;
+				PRODUCT_NAME = DDYAuthManager;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		53A1905C34444DC86F34B7E18057BAAF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48B0EE74E7FD99D6E8F44CB486835AA8 /* DDYAuthManager.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/DDYAuthManager/DDYAuthManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = DDYAuthManager;
+				PRODUCT_NAME = DDYAuthManager;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		96434B6C8FF320C976A10DAD7174A4BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		BFC79DF3D232407C99D18612FEA208C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50B24B123CF036ECE93607C76747C464 /* Pods-DDYAuthorityManager.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D11C82AF2204B41B80412B8DC9C1D652 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D11C82AF2204B41B80412B8DC9C1D652 /* Debug */,
+				96434B6C8FF320C976A10DAD7174A4BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D80C01E2D41CC054E7E78F0F8C06D4 /* Build configuration list for PBXNativeTarget "DDYAuthManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53A1905C34444DC86F34B7E18057BAAF /* Debug */,
+				5354C4F961EAFC5F5833BD694C9BEEA6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8111DAEA2B0CF50EF2BBB398F072CCF /* Build configuration list for PBXNativeTarget "Pods-DDYAuthorityManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BFC79DF3D232407C99D18612FEA208C4 /* Debug */,
+				4FC7D964A6ABD6141573664D44791EB5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

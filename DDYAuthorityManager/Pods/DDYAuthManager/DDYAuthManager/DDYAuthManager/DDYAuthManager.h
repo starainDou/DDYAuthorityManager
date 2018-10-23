@@ -1,3 +1,11 @@
+/** MARK: -
+ *  !!!: Author: 豆电雨
+ *  !!!: QQ/WX:  634778311
+ *  !!!: Github: https://github.com/RainOpen/
+ *  !!!: Blog:   https://www.jianshu.com/u/a4bc2516e9e5
+ *  MARK: - 为了更直观，所以将成功与失败回调block分开了
+ */
+
 #import <Foundation/Foundation.h>
 // 麦克风/摄像头(相机)权限使用
 @import AVFoundation;
@@ -43,7 +51,8 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
     DDYCLLocationTypeInUse  = 4,
 };
 
-@interface DDYAuthorityManager : NSObject
+@interface DDYAuthManager : NSObject
+
 
 /**
  麦克风权限 带主动请权
@@ -51,12 +60,16 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
  @param success 已授权
  @param fail 无权限
  */
-+ (void)ddy_AudioAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(AVAuthorizationStatus authStatus))fail;
++ (void)ddy_AudioAuthAlertShow:(BOOL)show
+                       success:(void (^)(void))success
+                          fail:(void (^)(AVAuthorizationStatus authStatus))fail;
 
 /**
  摄像头(相机)权限 带主动请权 使用前最好先判断摄像头是否可用
  */
-+ (void)ddy_CameraAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(AVAuthorizationStatus authStatus))fail;
++ (void)ddy_CameraAuthAlertShow:(BOOL)show
+                        success:(void (^)(void))success
+                           fail:(void (^)(AVAuthorizationStatus authStatus))fail;
 
 /** 判断设备摄像头是否可用 */
 + (BOOL)isCameraAvailable;
@@ -70,22 +83,30 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
 /**
  相册权限 iOS 8+ 带主动请权
  */
-+ (void)ddy_AlbumAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(PHAuthorizationStatus authStatus))fail;
++ (void)ddy_AlbumAuthAlertShow:(BOOL)show
+                       success:(void (^)(void))success
+                          fail:(void (^)(PHAuthorizationStatus authStatus))fail;
 
 /**
  通讯录权限 带主动请权
  */
-+ (void)ddy_ContactsAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(DDYContactsAuthStatus authStatus))fail;
++ (void)ddy_ContactsAuthAlertShow:(BOOL)show
+                          success:(void (^)(void))success
+                             fail:(void (^)(DDYContactsAuthStatus authStatus))fail;
 
 /**
  日历权限 带主动请权
  */
-+ (void)ddy_EventAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(EKAuthorizationStatus authStatus))fail;
++ (void)ddy_EventAuthAlertShow:(BOOL)show
+                       success:(void (^)(void))success
+                          fail:(void (^)(EKAuthorizationStatus authStatus))fail;
 
 /**
  备忘录权限 带主动请权
  */
-+ (void)ddy_ReminderAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(EKAuthorizationStatus authStatus))fail;
++ (void)ddy_ReminderAuthAlertShow:(BOOL)show
+                          success:(void (^)(void))success
+                             fail:(void (^)(EKAuthorizationStatus authStatus))fail;
 
 /**
  用网络请求方式主动获取一次权限 首次安装才可能联网权限弹窗(如果弹窗时没点击任何信息直接关机，下次启动仍视为首次)
@@ -96,15 +117,19 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
 /**
  联网权限 iOS 10+ 不带主动请权 http需设置AST
  */
-+ (void)ddy_NetAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(CTCellularDataRestrictedState authStatus))fail API_AVAILABLE(ios(10.0));
++ (void)ddy_NetAuthAlertShow:(BOOL)show
+                     success:(void (^)(void))success
+                        fail:(void (^)(CTCellularDataRestrictedState authStatus))fail API_AVAILABLE(ios(10.0));
 
 /**
- 推送通知权限 需要在打开 target -> Capabilities —> Push Notifications iOS10+带主动请权，iOS9-不带主动请权
+ 推送通知权限 需要在打开 target -> Capabilities —> Push Notifications iOS10+带主动请权，iOS8-iOS9不带主动请权
  @param show 无权限时默认提示
  @param success 已授权
  @param fail 未授权 只返回是否有权限推送，不返回具体权限(badge,alert,sound)
  */
-+ (void)ddy_PushNotificationAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(void))fail;
++ (void)ddy_PushNotificationAuthAlertShow:(BOOL)show
+                                  success:(void (^)(void))success
+                                     fail:(void (^)(void))fail;
 
 /**
  定位权限 不带主动请权 使用前先判断服务是否开启 [CLLocationManager locationServicesEnabled]
@@ -113,12 +138,17 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
  @param success 已授权
  @param fail 未授权 如果是kCLAuthorizationStatusNotDetermined未经弹框(或者弹框未任何操作，例如弹框时关机)，则需特殊处理
  */
-+ (void)ddy_LocationAuthType:(DDYCLLocationType)type alertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(CLAuthorizationStatus authStatus))fail;
++ (void)ddy_LocationAuthType:(DDYCLLocationType)type
+                   alertShow:(BOOL)show
+                     success:(void (^)(void))success
+                        fail:(void (^)(CLAuthorizationStatus authStatus))fail;
 
 /**
  语音识别(转文字)权限 带主动请权
  */
-+ (void)ddy_SpeechAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(SFSpeechRecognizerAuthorizationStatus authStatus))fail API_AVAILABLE(ios(10.0));
++ (void)ddy_SpeechAuthAlertShow:(BOOL)show
+                        success:(void (^)(void))success
+                           fail:(void (^)(SFSpeechRecognizerAuthorizationStatus authStatus))fail API_AVAILABLE(ios(10.0));
 
 /**
  健康数据权限 不带主动请权 使用前先判断健康数据是否可用 [HKHealthStore isHealthDataAvailable]
@@ -127,9 +157,13 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
  @param success 已授权
  @param fail 未授权
  */
-+ (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type alertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(HKAuthorizationStatus authStatus))fail;
++ (void)ddy_HealthAuth:(HKQuantityTypeIdentifier)type
+             alertShow:(BOOL)show
+               success:(void (^)(void))success
+                  fail:(void (^)(HKAuthorizationStatus authStatus))fail;
 
 @end
+
 /**
  <!-- http AST -->
  <key>NSAppTransportSecurity</key>
@@ -181,3 +215,4 @@ typedef NS_ENUM(NSUInteger, DDYCLLocationType) {
  <key>NSSiriUsageDescription</key>
  <string>App需要您的同意，才能使用Siri，是否同意？</string>
  */
+

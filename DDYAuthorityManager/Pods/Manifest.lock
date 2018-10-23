@@ -1,0 +1,16 @@
+PODS:
+  - DDYAuthManager (1.0.0)
+
+DEPENDENCIES:
+  - DDYAuthManager (~> 1.0.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - DDYAuthManager
+
+SPEC CHECKSUMS:
+  DDYAuthManager: 85eec8dba39a3655f7e95aac09fc7c109575d249
+
+PODFILE CHECKSUM: 4bb465fb0cda7da53dd5f1e234f4a31c72455234
+
+COCOAPODS: 1.6.0.beta.1

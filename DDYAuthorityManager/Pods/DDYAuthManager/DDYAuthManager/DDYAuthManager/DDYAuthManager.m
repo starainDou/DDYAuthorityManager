@@ -1,20 +1,29 @@
-#import "DDYAuthorityManager.h"
-// 弹窗使用
-#import "AppDelegate.h"
+/** MARK: -
+ *  !!!: Author: 豆电雨
+ *  !!!: QQ/WX:  634778311
+ *  !!!: Github: https://github.com/RainOpen/
+ *  !!!: Blog:   https://www.jianshu.com/u/a4bc2516e9e5
+ *  MARK: -
+ */
 
-@implementation DDYAuthorityManager
+#import "DDYAuthManager.h"
+#import "NSBundle+DDYAuthManger.h"
 
+@implementation DDYAuthManager
+/**
+ [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) { }];
+ */
 #pragma mark 麦克风权限
 + (void)ddy_AudioAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(AVAuthorizationStatus))fail {
     void (^handleResult)(BOOL, AVAuthorizationStatus) = ^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"麦克风"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthMicrophone"]];
     };
     
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     if (authStatus == AVAuthorizationStatusNotDetermined) {
-        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 handleResult(granted, granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
             });
@@ -29,12 +38,12 @@
     void (^handleResult)(BOOL, AVAuthorizationStatus) = ^(BOOL isAuthorized, AVAuthorizationStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"摄像头"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthCamera"]];
     };
     
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if (authStatus == AVAuthorizationStatusNotDetermined) {
-        [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 handleResult(granted, granted ? AVAuthorizationStatusAuthorized : AVAuthorizationStatusDenied);
             });
@@ -64,7 +73,7 @@
     void (^handleResult)(BOOL, PHAuthorizationStatus) = ^(BOOL isAuthorized, PHAuthorizationStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"相册"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthAlbum"]];
     };
     
     PHAuthorizationStatus authStatus = [PHPhotoLibrary authorizationStatus];
@@ -84,7 +93,7 @@
     void (^handleResult)(BOOL, DDYContactsAuthStatus) = ^(BOOL isAuthorized, DDYContactsAuthStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"通讯录"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthContacts"]];
     };
     
     if (@available(iOS 9.0, *)) {
@@ -127,7 +136,7 @@
     void (^handleResult)(BOOL, EKAuthorizationStatus) = ^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"日历"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthCalendars"]];
     };
     
     EKAuthorizationStatus authStatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
@@ -148,7 +157,7 @@
     void (^handleResult)(BOOL, EKAuthorizationStatus) = ^(BOOL isAuthorized, EKAuthorizationStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"备忘录"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthReminders"]];
     };
     
     EKAuthorizationStatus authStatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder];
@@ -189,16 +198,27 @@
 }
 
 #pragma mark 联网权限 iOS 10+
+/**
+ // 网络权限更改回调,如果不想每次改变都回调那记得置nil
+ cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
+ dispatch_async(dispatch_get_main_queue(), ^{
+ if (state == kCTCellularDataNotRestricted) {
+ if (authState != state) handleResult(YES, state);
+ } else {
+ if (authState != state) handleResult(NO, state);
+ if (show && authState != state) handleResult(NO, authState);
+ }
+ });
+ };
+ */
 + (void)ddy_NetAuthAlertShow:(BOOL)show success:(void (^)(void))success fail:(void (^)(CTCellularDataRestrictedState))fail {
     // CTCellularData在iOS9之前是私有类，但联网权限设置是iOS10开始的
     if (@available(iOS 10.0, *)) {
         void (^handleResult)(BOOL, CTCellularDataRestrictedState) = ^(BOOL isAuthorized, CTCellularDataRestrictedState authStatus) {
             if (isAuthorized && success) success();
             if (!isAuthorized && fail) fail(authStatus);
-            if (isAuthorized == kCTCellularDataRestricted && show) [self showAlertWithAuthName:@"网络"];
+            if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthNetwork"]];
         };
-        
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DDYNetAuthorityString"];
         CTCellularData *cellularData = [[CTCellularData alloc] init];
         CTCellularDataRestrictedState authState = cellularData.restrictedState;
         if (authState == kCTCellularDataNotRestricted) {
@@ -206,23 +226,18 @@
         } else if (authState == kCTCellularDataRestricted) {
             handleResult(NO, authState);
         } else {
-            handleResult(NO, authState);
-            static dispatch_once_t onceToken;
-            dispatch_once(&onceToken, ^{
-                [self ddy_GetNetAuthWithURL:nil];
-            });
-        }
-        // 网络权限更改回调,如果不想每次改变都回调那记得置nil
-        cellularData.cellularDataRestrictionDidUpdateNotifier = ^(CTCellularDataRestrictedState state) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (state == kCTCellularDataNotRestricted) {
-                    if (authState != state) handleResult(YES, state);
+            // CTCellularData刚实例化对象时可能kCTCellularDataRestrictedStateUnknown，所以延迟一下
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                CTCellularDataRestrictedState authState2 = cellularData.restrictedState;
+                if (authState2 == kCTCellularDataNotRestricted) {
+                    handleResult(YES, authState2);
+                } else if (authState == kCTCellularDataRestricted) {
+                    handleResult(NO, authState2);
                 } else {
-                    if (authState != state) handleResult(NO, state);
-                    if (show && authState != state) handleResult(NO, authState);
+                    handleResult(NO, authState2);
                 }
             });
-        };
+        }
     }
 }
 
@@ -236,33 +251,23 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (granted && success) success();
                         if (!granted && fail) fail();
-                        if (show && !granted) [self showAlertWithAuthName:@"通知"];
+                        if (show && !granted) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthNotifications"]];
                     });
                 }];
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (settings.authorizationStatus == UNAuthorizationStatusAuthorized && success) success();
                     if (settings.authorizationStatus != UNAuthorizationStatusAuthorized && fail) fail();
-                    if (show && settings.authorizationStatus == UNAuthorizationStatusDenied) [self showAlertWithAuthName:@"通知"];
+                    if (show && settings.authorizationStatus == UNAuthorizationStatusDenied) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthNotifications"]];
                 });
             }
         }];
     } else {
-        if (@available(iOS 8.0, *)) {
-            UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];
-            // UIUserNotificationTypeNone 收到通知不呈现UI，可能无权限也可能还未询问权限
-            if (settings.types != UIUserNotificationTypeNone && success) success();
-            if (settings.types == UIUserNotificationTypeNone && fail) fail();
-            if (show && settings.types == UIUserNotificationTypeNone) [self showAlertWithAuthName:@"通知"];
-        } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            UIRemoteNotificationType type = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-            if (type != UIRemoteNotificationTypeNone && success) success();
-            if (type == UIRemoteNotificationTypeNone && fail) fail();
-            if (show && type == UIRemoteNotificationTypeNone) [self showAlertWithAuthName:@"通知"];
-#pragma clang diagnostic pop
-        }
+        UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        // UIUserNotificationTypeNone 收到通知不呈现UI，可能无权限也可能还未询问权限
+        if (settings.types != UIUserNotificationTypeNone && success) success();
+        if (settings.types == UIUserNotificationTypeNone && fail) fail();
+        if (show && settings.types == UIUserNotificationTypeNone) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthNotifications"]];
     }
 }
 
@@ -286,7 +291,7 @@
             if (fail) fail(kCLAuthorizationStatusAuthorizedWhenInUse);
         } else {
             if (fail) fail(authStatus);
-            if (show) [self showAlertWithAuthName:@"定位"];
+            if (show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthLocation"]];
         }
     } else {
         NSLog(@"Location Services 未开启");
@@ -298,7 +303,7 @@
     void (^handleResult)(BOOL, SFSpeechRecognizerAuthorizationStatus) = ^(BOOL isAuthorized, SFSpeechRecognizerAuthorizationStatus authStatus) {
         if (isAuthorized && success) success();
         if (!isAuthorized && fail) fail(authStatus);
-        if (!isAuthorized && show) [self showAlertWithAuthName:@"语音识别(转文字)"];
+        if (!isAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthSpeech"]];
     };
     SFSpeechRecognizerAuthorizationStatus authStatus = [SFSpeechRecognizer authorizationStatus];
     if (authStatus == SFSpeechRecognizerAuthorizationStatusNotDetermined) {
@@ -321,9 +326,7 @@
             HKAuthorizationStatus authStatus = [healthStore authorizationStatusForType:quantityType];
             if (authStatus == HKAuthorizationStatusSharingAuthorized && success) success();
             if (authStatus != HKAuthorizationStatusSharingAuthorized && fail) fail(authStatus);
-            if (authStatus != HKAuthorizationStatusSharingAuthorized && show) [self showAlertWithAuthName:@"健康数据"];
-        } else {
-            NSLog(@"type error");
+            if (authStatus != HKAuthorizationStatusSharingAuthorized && show) [self showAlertWithAuthInfo:[self i18n:@"DDYNoAuthHealth"]];
         }
     } else {
         NSLog(@"健康数据不可用");
@@ -332,12 +335,11 @@
 
 #pragma mark - 私有方法
 #pragma mark 默认无权限提示
-+ (void)showAlertWithAuthName:(NSString *)authName
-{
-    NSString *message = [NSString stringWithFormat:@"请开启%@对%@的权限",[self getAPPName], authName];
++ (void)showAlertWithAuthInfo:(NSString *)authInfo {
+    NSString *message = [authInfo stringByReplacingOccurrencesOfString:@"%@" withString:[self getAPPName]];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    [alert addAction:[UIAlertAction actionWithTitle:[self i18n:@"DDYNoAuthCancel"] style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:[self i18n:@"DDYNoAuthConfirm"] style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
         } else {
@@ -353,6 +355,10 @@
     NSString *bundleDisplayName = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     NSString *bundleName = [infoDictionary objectForKey:@"CFBundleName"];
     return (bundleDisplayName != nil ? bundleDisplayName : bundleName);
+}
+
++ (NSString *)i18n:(NSString *)str {
+    return DDYAuthManagerI18n(str);
 }
 
 @end
