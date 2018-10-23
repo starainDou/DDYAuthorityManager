@@ -1,9 +1,4 @@
-# DDYAuthManager
-
-
-
-
-
+# [DDYAuthManager](https://github.com/RainOpen/DDYAuthManager)
 
 ![DDYAuthManager.png](https://github.com/starainDou/DDYDemoImage/blob/master/DDYAuthManager.png)  ![DDYAuthManager2.png](https://github.com/starainDou/DDYDemoImage/blob/master/DDYAuthManager2.png)
 
@@ -178,3 +173,5 @@ if (@available(iOS 10.0, *)) {
 * 如果pod search DDYAuthManager搜索不到，可以尝试先执行 rm ~/Library/Caches/CocoaPods/search_index.json
 
 * 联网权限不弹窗或者wifi下弹窗拒绝蜂窝网络问题 见https://github.com/Zuikyo/ZIKCellularAuthorization
+
+* 本工程已经变更为Demo，请移步[DDYAuthManager](https://github.com/RainOpen/DDYAuthManager)下载源工程
