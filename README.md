@@ -8,6 +8,7 @@
 
 * 只有有权限才能下一步操作
 
+# [该库源码请移步https://github.com/RainOpen/DDYAuthManager](https://github.com/RainOpen/DDYAuthManager)
 
 > # 集成
 
