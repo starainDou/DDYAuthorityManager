@@ -351,14 +351,14 @@
 			baseConfigurationReference = B9F9CA9D4A1C60097788FBED /* Pods-DDYAuthorityManager.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23JJ7VRKJT;
+				DEVELOPMENT_TEAM = X634X4Y33S;
 				INFOPLIST_FILE = "$(SRCROOT)/DDYAuthorityManager/System/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smartmesh.smart2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dengyun.dengyunblln;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -369,14 +369,14 @@
 			baseConfigurationReference = 959F405F0B7FF4F8C823CF04 /* Pods-DDYAuthorityManager.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 23JJ7VRKJT;
+				DEVELOPMENT_TEAM = X634X4Y33S;
 				INFOPLIST_FILE = "$(SRCROOT)/DDYAuthorityManager/System/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smartmesh.smart2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dengyun.dengyunblln;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
