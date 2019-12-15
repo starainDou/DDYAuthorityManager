@@ -1,8 +1,78 @@
-# DDYAuthManager
+# [DDYAuthManager](https://github.com/RainOpen/DDYAuthManager)
 
-各种权限验证(主动申请权限)管理，麦克风权限，相机权限，相册，日历，备忘录，联网权限，推送通知权限，定位权限，语音识别权限等等
+![DDYAuthManager.png](https://github.com/starainDou/DDYDemoImage/blob/master/DDYAuthManager.png)  ![DDYAuthManager2.png](https://github.com/starainDou/DDYDemoImage/blob/master/DDYAuthManager2.png)
 
-> ### 录音(麦克风)权限
+* 各种权限验证(主动申请权限)管理，麦克风权限，相机权限，相册，日历，备忘录，联网权限，推送通知权限，定位权限，语音识别权限等等    
+* 各种权限申请(有的不支持二次申请，比如联网权限，在国行版iOS10+一个bundleID只会询问一次)    
+* 先鉴定权限，有权限才能进一步执行某些业务    
+
+> # 集成
+
+* CocoaPods方式 
+
+  1.pod 'DDYAuthManager', '~> 1.3.0' 
+ 
+  2.#import <DDYAuthManager/DDYAuthManager.h>
+
+[使用方案](https://github.com/starainDou/DDYAuthorityManager)
+
+* 文件夹拖入工程方式
+  
+  1.下载工程解压后将'DDYAuthManager'文件夹拖到工程中
+
+  2.#import "DDYAuthManager.h"
+
+> # 配置plist
+
+* 具体信息根据需要自行修改
+
+    ```
+     <!-- 权限配置 -->
+     <key>NSAppleMusicUsageDescription</key>
+     <string>App需要您的同意，才能访问媒体资料库，是否同意？</string>
+     <key>NSBluetoothPeripheralUsageDescription</key>
+     <string>App需要您的同意，才能访问蓝牙，是否同意？</string>
+     <key>NSCalendarsUsageDescription</key>
+     <string>App需要您的同意，才能访问日历，是否同意？</string>
+     <key>NSCameraUsageDescription</key>
+     <string>App需要您的同意，才能使用相机，是否同意？</string>
+     <key>NSContactsUsageDescription</key>
+     <string>App需要您的同意，才能使用通讯录，是否同意？</string>
+     <key>NSHealthShareUsageDescription</key>
+     <string>App需要您的同意，才能访问健康分享，是否同意？</string>
+     <key>NSHealthUpdateUsageDescription</key>
+     <string>App需要您的同意，才能访问健康更新，是否同意？</string>
+     <key>NSLocationAlwaysUsageDescription</key>
+     <string>App需要您的同意，才能始终访问位置</string>
+     <key>NSLocationUsageDescription</key>
+     <string>App需要您的同意，才能访问位置，是否同意？</string>
+     <key>NSLocationWhenInUseUsageDescription</key>
+     <string>App需要您的同意，才能在使用期间访问位置</string>
+     <key>NSMicrophoneUsageDescription</key>
+     <string>App需要您的同意，才能使用麦克风，是否同意？</string>
+     <key>NSMotionUsageDescription</key>
+     <string>App需要您的同意，才能访问运动与健身，是否同意？</string>
+     <key>NSPhotoLibraryUsageDescription</key>
+     <string>App需要您的同意，才能访问相册，是否同意？</string>
+     <key>NSPhotoLibraryAddUsageDescription</key>
+     <string>App需要您的同意，才能保存图片到相册，是否同意？</string>
+     <key>NSRemindersUsageDescription</key>
+     <string>App需要您的同意，才能访问提醒事项，是否同意？</string>
+     <key>NSSpeechRecognitionUsageDescription</key>
+     <string>App需要您的同意，才能使用语音识别，是否同意？</string>
+     <key>NSFaceIDUsageDescription</key>
+     <string>App需要您的同意，才能使用Face ID，是否同意？</string>
+     <key>NSHomeKitUsageDescription</key>
+     <string>App需要您的同意，才能使用HomeKit，是否同意？</string>
+     <key>NFCReaderUsageDescription</key>
+     <string>App需要您的同意，才能使用NFC，是否同意？</string>
+     <key>NSSiriUsageDescription</key>
+     <string>App需要您的同意，才能使用Siri，是否同意？</string>
+    ```
+
+> # 使用
+
+### 录音(麦克风)权限
 
 * 鉴定权限和请求权限统一
 
@@ -12,8 +82,8 @@
 // 也可以用 [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) { }];请求录音权限
 ```
 
-<br>
-> ### 相机(摄像头)权限
+
+### 相机(摄像头)权限
 
 * 鉴定权限和请求权限统一
 
@@ -24,8 +94,8 @@
 // 可以先检查摄像头可用性 [DDYAuthManager isCameraAvailable]
 ```
 
-<br>
-> ### 图片(相册)权限
+
+### 图片(相册)权限
 
 * 鉴定权限和请求权限统一
 
@@ -33,8 +103,8 @@
 [DDYAuthManager ddy_AlbumAuthAlertShow:YES success:^{} fail:^(PHAuthorizationStatus authStatus) {}];
 ```
 
-<br>
-> ### 通讯录(联系人)权限
+
+### 通讯录(联系人)权限
 
 * 鉴定权限和请求权限统一
 
@@ -42,8 +112,8 @@
 [DDYAuthManager ddy_ContactsAuthAlertShow:YES success:^{} fail:^(DDYContactsAuthStatus authStatus) {}];
 ```
 
-<br>
-> ### 事件(日历)权限
+
+### 事件(日历)权限
 
 * 鉴定权限和请求权限统一
 
@@ -51,16 +121,18 @@
 [DDYAuthManager ddy_EventAuthAlertShow:YES success:^{} fail:^(EKAuthorizationStatus authStatus) {}];
 ```
 
-<br>
-> ### 备忘录权限
+
+### 备忘录权限
 
 * 鉴定权限和请求权限统一
 
 ```
 [DDYAuthManager ddy_ReminderAuthAlertShow:YES success:^{} fail:^(EKAuthorizationStatus authStatus) {}];
-``
-<br>
-> ### 通知(推送)权限
+```
+
+
+### 通知(推送)权限
+
 
 * 请求权限(注册通知)
 
@@ -87,8 +159,8 @@ if (@available(iOS 10.0, *)) {
 [DDYAuthManager ddy_PushNotificationAuthAlertShow:YES success:^{} fail:^{}];
 ```
 
-<br>
-> ### 位置(定位)权限
+
+### 位置(定位)权限
 
 * 请求权限
 
@@ -109,8 +181,8 @@ if ([CLLocationManager locationServicesEnabled]) {
 [DDYAuthManager ddy_LocationAuthType:DDYCLLocationTypeInUse alertShow:YES success:^{} fail:^(CLAuthorizationStatus authStatus) {}];
 ```
 
-<br>
-> ### 语音识别(语音转文字)权限
+
+### 语音识别(语音转文字)权限
 
 * 鉴定权限和请求权限统一
 
@@ -120,8 +192,8 @@ if (@available(iOS 10.0, *)) {
 }
 ```
 
-<br>
-> ### 联网权限
+
+### 联网权限
 
 * 请求权限
 
@@ -141,4 +213,8 @@ if (@available(iOS 10.0, *)) {
 ```
 
 
-# 
+
+附：
+
+* 如果pod search DDYAuthManager搜索不到，可以尝试先执行 rm ~/Library/Caches/CocoaPods/search_index.json
+* 联网权限不弹窗或者wifi下弹窗拒绝蜂窝网络问题 见https://github.com/Zuikyo/ZIKCellularAuthorization
